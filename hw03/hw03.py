@@ -43,11 +43,20 @@ def load_logs(file_path: str) -> list:
 
 
 def filter_logs_by_level(logs: list, level: str) -> list:
+    '''
+    Функція фільтрує список словників та повертає список словників
+    відфільтрований за рівнем помилки.
+    '''
     level = level.upper()
     return list(filter(lambda log: log["level"] == level, logs))
 
 
 def count_logs_by_level(logs: list) -> dict:
+    '''
+    Функція підраховує кількість логів за помилками та повертає словник,
+    де ключ - тип помилки, а значення - кількість таких помилок у файлі логів.
+    '''
+    # створюємо спеціальний словник, який автоматично створює значення за ключем
     counts = defaultdict(int)
     for log in logs:
         counts[log["level"]] += 1
@@ -55,6 +64,9 @@ def count_logs_by_level(logs: list) -> dict:
 
 
 def display_log_counts(counts: dict):
+    '''
+    Функція виводить структуру для прінта помилок.
+    '''
     print("Рівень логування | Кількість")
     print("-----------------|----------")
     for level, count in counts.items():
@@ -62,6 +74,7 @@ def display_log_counts(counts: dict):
 
 
 def main():
+    # якщо аргументів менше двух - видає помилку та виходить
     if len(sys.argv) < 2:
         print("Usage: python hw03.py <logfile> [level]")
         sys.exit(1)
@@ -76,7 +89,7 @@ def main():
 
     counts = count_logs_by_level(logs)
     display_log_counts(counts)
-
+    
     if level:
         filtered_logs = filter_logs_by_level(logs, level)
         print(f"\nДеталі логів для рівня '{level.upper()}':")
