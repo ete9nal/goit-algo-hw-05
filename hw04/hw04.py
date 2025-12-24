@@ -1,3 +1,5 @@
+from functools import wraps
+
 banner = '''
   /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$  /$$   /$$ /$$$$$$$$       /$$$$$$$   /$$$$$$  /$$$$$$$$
  /$$__  $$ /$$__  $$ /$$__  $$|_  $$_/ /$$__  $$|__  $$__//$$__  $$| $$$ | $$|__  $$__/      | $$__  $$ /$$__  $$|__  $$__/
@@ -11,6 +13,7 @@ banner = '''
 
 
 def input_error(func):
+    @wraps(func)
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
